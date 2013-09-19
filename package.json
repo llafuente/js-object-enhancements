@@ -1,6 +1,6 @@
 {
   "name": "object-enhancements",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Many helpful functions for javascript Object",
   "main": "./index.js",
   "keywords": [
