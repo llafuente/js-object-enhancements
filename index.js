@@ -1,6 +1,6 @@
 (function () {
     "use strict";
 
-    require("./lib/objects.js");
+    module.exports = require("./lib/objects.js");
 
 }());

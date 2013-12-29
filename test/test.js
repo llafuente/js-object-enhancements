@@ -1,8 +1,8 @@
 (function () {
     "use strict";
 
-    require("../index.js");
-    var tap = require("tap"),
+    var oen = require("../index.js"),
+        tap = require("tap"),
         test = tap.test,
         t;
 
@@ -56,7 +56,67 @@
         t.deepEqual(t8, {a: true, b: 1, c: false}, "extract test 1");
 
 
+        t.equal(0, Object.depth({}), "empty obj depth 0");
+        t.equal(1, Object.depth({a: true}), "no empty depth 1");
+        t.equal(1, Object.depth({xxx: {}}), "no empty, empty 2 => depth 1");
+        t.equal(2, Object.depth({xxx: {yyy: {}}}), "no empty, no empty, empty 3 => depth 2");
+
+
+        //t.equal(2, Object.rFilter({xxx: {yyy: new Date(), zzz = new RegExp(), ar: []}}, oen.__typeof), "no empty, no empty, empty 3 => depth 2");
+
+        t.deepEqual(
+            {date: "date", regexp: "regexp", array: "array", number: "number", "null": "null", recurive: {string: "string"}},
+            Object.rFilter({date: new Date(), regexp: new RegExp(), array: [], number: 10, "null": undefined, recurive: {string: "string"}}, oen.__typeof),
+            "filter recursive"
+        );
+
+        t.deepEqual(
+            ["number", "string"],
+            Object.rFilter([10, "string"], oen.__typeof, true),
+            "loop arrays"
+        );
+
+        t.deepEqual(
+            "array",
+            Object.rFilter([10, "string"], oen.__typeof),
+            "dont loop arrays"
+        );
+
         t.end();
     });
 
+    test("typeof", function(t) {
+        // typeof test
+        t.equal(oen.__typeof(new Date()), "date", "type of string");
+
+        t.equal(oen.__typeof("string"), "string", "type of string");
+        t.equal(oen.__typeof([]), "array", "type of array");
+        t.equal(oen.__typeof(new Array(1)), "array", "type of array");
+        t.equal(oen.__typeof(1), "number", "number 1");
+        t.equal(oen.__typeof(1.0), "number", "number 1.0");
+        t.equal(oen.__typeof(NaN), "null", "Nan");
+        t.equal(oen.__typeof(false), "boolean", "boolean");
+        t.equal(oen.__typeof(true), "boolean", "boolean");
+        t.equal(oen.__typeof(undefined), "null", "undefined");
+        t.equal(oen.__typeof(null), "null", "null");
+        t.equal(oen.__typeof({}), "object", "object");
+        t.equal(oen.__typeof(new Object()), "object", "new Object()");
+        t.equal(oen.__typeof(Object.create(null)), "object", "object.create(null)");
+        t.equal(oen.__typeof(Infinity), "number", "object");
+        t.equal(oen.__typeof(/^a$/), "regexp", "object");
+
+        (function() {
+            t.equal(oen.__typeof(arguments), "arguments", "undefined");
+        }());
+
+        (function() {
+            t.equal(oen.__typeof(arguments), "arguments", "undefined");
+        }({x:1}));
+
+        (function() {
+            t.equal(oen.__typeof(arguments), "arguments", "undefined");
+        }(1, 1));
+
+        t.end();
+    });
 }());
