@@ -6,19 +6,49 @@
 
 Functions included
 
-``` js
+```js
 
-Object.each(obj, callback(value, key))
-Object.clone(obj) // clone the object and clone the values!!
-Object.merge(from, to, clone, must_exists)
-Object.combine(array_keys, array_values)
-Object.extract(obj, array_keys)
+// proper typeof implementation
+Object.typeof(): String
+
+// loop an object, like forEach
+Object.forEach(obj, callback(value[, key]))
+Object.each(obj, callback(value[, key]))
+
+// recursive clone the object, no only the structure also the values
+Object.clone(obj): Mixed
+
+// merge two objects recursive.
+// to merge only existing keys in from object: must_exists = true
+// to also clone values: clone = true
+Object.merge(from, to[, clone = false[, must_exists = false]]): Object
+
+// combine two arrays into an object given keys-values
+Object.combine(array_keys, array_values): Object
+
+// extract from an object given keys
+// extract return an object with all keys given, if not found in obj will return default_value
+Object.extract(obj, array_keys[, default_value = null]): Object
+
+// check if an object don't have any key-value
+Object.empty(obj): Boolean
+
+// tell you how depth is the object structure
+// note: also loop arrays
+Object.depth(obj): Number
+
+// sort object keys, so in loop will be sorted
 Object.ksort(obj)
+
+// recursive filter an object
+Object.rFilter
 
 // note all return and object as you should suppose just by yourself
 
-# compatibility layer for old browsers
+// compatibility layer for old browsers
 Object.keys
+Object.defineProperty // throws in case of setter/getter
+Object.seal // just do nothing
 
 ```
 
