@@ -40,8 +40,15 @@ Object.depth(obj): Number
 // sort object keys, so in loop will be sorted
 Object.ksort(obj)
 
-// recursive filter an object
-Object.rFilter
+// recursive filter an object (sync!)
+Object.rFilter(obj, callback, loop_arrays): Object
+
+// create a new object with keys prefixed
+Object.prefixKeys(obj, prefix, ignore_keys): Object
+
+// create a new object with removing the prefix from keys (if exists)
+Object.prefixKeys(obj, prefix, ignore_keys): Object
+
 
 // note all return and object as you should suppose just by yourself
 
@@ -49,6 +56,8 @@ Object.rFilter
 Object.keys
 Object.defineProperty // throws in case of setter/getter
 Object.seal // just do nothing
+
+
 
 ```
 

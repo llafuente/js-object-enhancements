@@ -151,4 +151,20 @@
         t.end();
 
     });
+
+
+    test("each", function (t) {
+        var keys = [],
+            values = [];
+//console.log(Object.prefixKeys({x: 0, y: 1, z: 2}, "test-"));
+//process.exit();
+        t.deepEqual(Object.prefixKeys({x: 0, y: 1, z: 2}, "test-"), {"test-x": 0, "test-y": 1, "test-z": 2}, "test- prefix");
+        t.deepEqual(Object.prefixKeys({x: 0, y: 1, z: 2}, "test-", ["z"]), {"test-x": 0, "test-y": 1, z: 2}, "test- prefix");
+
+        t.deepEqual(Object.remPrefixKeys({"test-x": 0, "test-y": 1, z: 2}, "test-"), {x: 0, y: 1, z: 2}, "test- rem/prefix");
+        t.deepEqual(Object.remPrefixKeys({"test-x": 0, "test-y": 1, z: 2}, "test-", ["test-y"]), {x: 0, "test-y": 1, z: 2}, "test- rem/prefix");
+
+        t.end();
+
+    });
 }());
