@@ -1,9 +1,9 @@
 (function () {
     "use strict";
     require('ass');
-    require("../index.js")
 
-    var __typeof = Object["typeof"],
+    var object = require("../index.js"),
+        __typeof = object["typeof"],
         tap = require("tap"),
         test = tap.test,
         t;
@@ -14,23 +14,23 @@
     test("Object tests", function (t) {
 
         var t1_arg2 = {ill: true},
-            t1 = Object.merge({}, t1_arg2),
-            t2 = Object.merge({abc: 123}, {ill: "yy", abc: [1, 2, 3]}, true),
-            t3 = Object.merge({abc: 123}, {ill: "yy", abc: [1, 2, 3]}, false, true),
-            t4  = Object.combine(["xxx", "yyy"], [1, 2]),
-            t5  = Object.combine(["xxx", "yyy"], [1]),
-            t6  = Object.combine(["xxx", "yyy"], [false]),
-            t7  = Object.extract({ill: "yy", abc: [1, 2, 3]}, ["ill", "xxx"]),
-            t8  = Object.ksort({a: true, c: false, b: 1}),
-            t9  = Object.merge(true, {a: true, c: false, b: {xxx: "xxx"}}, true, false),
-            t10  = Object.merge(true, {a: true, c: false, b: {xxx: "xxx"}}, true, false),
+            t1 = object.merge({}, t1_arg2),
+            t2 = object.merge({abc: 123}, {ill: "yy", abc: [1, 2, 3]}, true),
+            t3 = object.merge({abc: 123}, {ill: "yy", abc: [1, 2, 3]}, false, true),
+            t4  = object.combine(["xxx", "yyy"], [1, 2]),
+            t5  = object.combine(["xxx", "yyy"], [1]),
+            t6  = object.combine(["xxx", "yyy"], [false]),
+            t7  = object.extract({ill: "yy", abc: [1, 2, 3]}, ["ill", "xxx"]),
+            t8  = object.ksort({a: true, c: false, b: 1}),
+            t9  = object.merge(true, {a: true, c: false, b: {xxx: "xxx"}}, true, false),
+            t10  = object.merge(true, {a: true, c: false, b: {xxx: "xxx"}}, true, false),
             t11_arg2 = [1, 2, 3, 4],
-            t11  = Object.merge({}, t11_arg2, true, false),
+            t11  = object.merge({}, t11_arg2, true, false),
             t12_arg2 = [1, 2, 3, 4],
-            t12  = Object.clone(t12_arg2),
+            t12  = object.clone(t12_arg2),
             t13_arg2 = [{x: 1, sub: {kk: 1}}, {y: 2}, {z: 3}, {g: 0}],
-            t13  = Object.clone(t13_arg2),
-            t14 = Object.extend({x: 1, z:4}, {x: 2, y: 3});
+            t13  = object.clone(t13_arg2),
+            t14 = object.extend({x: 1, z:4}, {x: 2, y: 3});
 
         //console.log(t9);
 
@@ -59,32 +59,32 @@
         t.deepEqual(t8, {a: true, b: 1, c: false}, "extract test 1");
 
 
-        t.equal(0, Object.depth(null), "null is depth 0");
-        t.equal(0, Object.depth({}), "empty obj depth 0");
-        t.equal(1, Object.depth({a: true}), "no empty depth 1");
-        t.equal(1, Object.depth({xxx: {}}), "no empty, empty 2 => depth 1");
-        t.equal(2, Object.depth({xxx: {yyy: {}}}), "no empty, no empty, empty 3 => depth 2");
+        t.equal(0, object.depth(null), "null is depth 0");
+        t.equal(0, object.depth({}), "empty obj depth 0");
+        t.equal(1, object.depth({a: true}), "no empty depth 1");
+        t.equal(1, object.depth({xxx: {}}), "no empty, empty 2 => depth 1");
+        t.equal(2, object.depth({xxx: {yyy: {}}}), "no empty, no empty, empty 3 => depth 2");
 
-        t.equal(3, Object.depth({xxx: [{yyy: {}}]}), "no empty, no empty, empty 3 => depth 2");
+        t.equal(3, object.depth({xxx: [{yyy: {}}]}), "no empty, no empty, empty 3 => depth 2");
 
 
-        //t.equal(2, Object.rFilter({xxx: {yyy: new Date(), zzz = new RegExp(), ar: []}}, __typeof), "no empty, no empty, empty 3 => depth 2");
+        //t.equal(2, object.rFilter({xxx: {yyy: new Date(), zzz = new RegExp(), ar: []}}, __typeof), "no empty, no empty, empty 3 => depth 2");
 
         t.deepEqual(
             {date: "date", regexp: "regexp", array: "array", number: "number", "null": "null", recurive: {string: "string"}},
-            Object.rFilter({date: new Date(), regexp: new RegExp(), array: [], number: 10, "null": undefined, recurive: {string: "string"}}, __typeof),
+            object.rFilter({date: new Date(), regexp: new RegExp(), array: [], number: 10, "null": undefined, recurive: {string: "string"}}, __typeof),
             "filter recursive"
         );
 
         t.deepEqual(
             ["number", "string"],
-            Object.rFilter([10, "string"], __typeof, true),
+            object.rFilter([10, "string"], __typeof, true),
             "loop arrays"
         );
 
         t.deepEqual(
             "array",
-            Object.rFilter([10, "string"], __typeof),
+            object.rFilter([10, "string"], __typeof),
             "dont loop arrays"
         );
 
@@ -96,8 +96,8 @@
         );
 
 
-        t.equal(true, Object.empty({}), "empty object");
-        t.equal(false, Object.empty({x: true}), "not empty object");
+        t.equal(true, object.empty({}), "empty object");
+        t.equal(false, object.empty({x: true}), "not empty object");
 
         t.end();
     });
@@ -140,7 +140,7 @@
     test("each", function (t) {
         var keys = [],
             values = [];
-        Object.each({x: 0, y: 1, z: 2}, function(v, k) {
+        object.each({x: 0, y: 1, z: 2}, function(v, k) {
             keys.push(k);
             values.push(v);
         });
@@ -156,15 +156,28 @@
     test("each", function (t) {
         var keys = [],
             values = [];
-//console.log(Object.prefixKeys({x: 0, y: 1, z: 2}, "test-"));
+//console.log(object.prefixKeys({x: 0, y: 1, z: 2}, "test-"));
 //process.exit();
-        t.deepEqual(Object.prefixKeys({x: 0, y: 1, z: 2}, "test-"), {"test-x": 0, "test-y": 1, "test-z": 2}, "test- prefix");
-        t.deepEqual(Object.prefixKeys({x: 0, y: 1, z: 2}, "test-", ["z"]), {"test-x": 0, "test-y": 1, z: 2}, "test- prefix");
+        t.deepEqual(object.prefixKeys({x: 0, y: 1, z: 2}, "test-"), {"test-x": 0, "test-y": 1, "test-z": 2}, "test- prefix");
+        t.deepEqual(object.prefixKeys({x: 0, y: 1, z: 2}, "test-", ["z"]), {"test-x": 0, "test-y": 1, z: 2}, "test- prefix");
 
-        t.deepEqual(Object.remPrefixKeys({"test-x": 0, "test-y": 1, z: 2}, "test-"), {x: 0, y: 1, z: 2}, "test- rem/prefix");
-        t.deepEqual(Object.remPrefixKeys({"test-x": 0, "test-y": 1, z: 2}, "test-", ["test-y"]), {x: 0, "test-y": 1, z: 2}, "test- rem/prefix");
+        t.deepEqual(object.remPrefixKeys({"test-x": 0, "test-y": 1, z: 2}, "test-"), {x: 0, y: 1, z: 2}, "test- rem/prefix");
+        t.deepEqual(object.remPrefixKeys({"test-x": 0, "test-y": 1, z: 2}, "test-", ["test-y"]), {x: 0, "test-y": 1, z: 2}, "test- rem/prefix");
 
         t.end();
 
     });
+
+    test("object.diff", function (t) {
+        t.deepEqual(object.diff({x: 0, y: 1, z: 2}, {x: 0, y: 1}), {z: 2}, "test-diff");
+        t.deepEqual(object.diff({x: 0, y: 1, z: 2}, {x: 0, y: 1, z: 2}), {}, "test-diff");
+
+        t.deepEqual(object.diff({x: 0, y: 1, z: 2}, {x: "0", y: 1, z: 2}), {x: 0}, "test-diff");
+        t.deepEqual(object.diff({x: 0, y: 1, z: 2}, {a: "0", b: 1, c: 2}), {x: 0, y: 1, z: 2}, "test-diff");
+
+        t.end();
+    });
+
+
+
 }());
