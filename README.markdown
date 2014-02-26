@@ -1,8 +1,8 @@
 # js-object-enhancements [![Build Status](https://secure.travis-ci.org/llafuente/js-object-enhancements.png?branch=master)](http://travis-ci.org/llafuente/js-object-enhancements)
-==========
+
+![NPM](https://nodei.co/npm/object-enhancements.png?compact=true)
 
 ## Introduction
-============
 
 Functions included
 
@@ -65,7 +65,6 @@ Object.seal // just do nothing
 ```
 
 ## Install
-==========
 
 With [npm](http://npmjs.org) do:
 
@@ -77,7 +76,6 @@ npm install object-enhancements
 ```
 
 ## test (travis-ci ready!)
-==========================
 
 ```
 
@@ -89,6 +87,5 @@ node test.js
 ```
 
 ## license
-==========
 
 MIT.

@@ -179,5 +179,31 @@
     });
 
 
+    test("object.get", function (t) {
+        var input = {
+            level1: {
+                xx: null,
+                level2: {
+                    xx: 10,
+                    level3: {
+                        xx: null,
+                        level4: {
+                            xx: 101
+                        }
+                    }
+                }
+            },
+            level0: "xx"
+        };
+        t.deepEqual(object.get(input, "level1.level2.level3.level4.xx"), 101, "get last one");
+        t.deepEqual(object.get(input, "level1.level2.level-invalid"), null, "get last one");
+        t.deepEqual(object.get(input, "level1.level2.xx"), 10, "get last one");
+        t.deepEqual(object.get(input, "level1.xx"), null, "get last one");
+
+        t.deepEqual(object.get(input, "level1.xx|level1.level2.level3.level4.xx"), 101, "get last one");
+
+        t.end();
+    });
+
 
 }());
